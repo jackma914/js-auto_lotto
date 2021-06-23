@@ -7,7 +7,7 @@ function Section() {
     <Container>
       <Popular />
       <Recommended>
-        <h1>111111111111111ssssssssssssssssssssss</h1>
+        <h1></h1>
       </Recommended>
     </Container>
   );
