@@ -1,22 +1,65 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
+import { Link, useHistory } from "react-router-dom";
+import { auth } from "../firebase";
 
-function LoginForm() {
+function Login() {
+  const history = useHistory();
+  const [id, setId] = useState("");
+  const [password, setPassword] = useState("");
+
+  const signIn = (e) => {
+    e.preventDefault();
+
+    auth
+      .signInWithEmailAndPassword(id, password)
+      .then((auth) => {
+        history.push("/");
+      })
+      .catch((error) => alert(error.message));
+  };
+
+  const register = (e) => {
+    e.preventDefault();
+
+    auth
+      .createUserWithEmailAndPassword(id, password)
+      .then((auth) => {
+        if (auth) {
+          history.push("/");
+        }
+      })
+      .catch((error) => alert(error.message));
+  };
+
   return (
     <Container>
-      <Input id="id" name="id" placeholder="아이디를 입력해주세요" />
+      <Input
+        id="id"
+        name="id"
+        placeholder="아이디를 입력해주세요"
+        value={id}
+        onChange={(e) => setId(e.target.value)}
+      />
       <Input
         id="password"
         name="password"
         type="password"
         placeholder="비밀번호를 입력해주세요"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
-      <Button>로그인</Button>
+      <Button type="submit" onClick={signIn}>
+        로그인
+      </Button>
+      <Button type="submit" onClick={register}>
+        회원가입
+      </Button>
     </Container>
   );
 }
 
-export default LoginForm;
+export default Login;
 
 const Container = styled.div`
   margin-top: 100px;
