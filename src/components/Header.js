@@ -6,6 +6,7 @@ import VideocamIcon from "@material-ui/icons/Videocam";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import { Link } from "react-router-dom";
+import MultiMenu from "./MultiMenu";
 
 function Header() {
   const [burgerStatus, setBurgerStatus] = useState(false);
@@ -30,19 +31,16 @@ function Header() {
       </Search>
 
       <RightMenu>
-        <div>
-          <VideocamIcon />
-        </div>
+        <MultiMenu />
         <div>
           <MoreVertIcon />
         </div>
-        <Link to="/login">
-          <button>로그인</button>{" "}
-        </Link>
+        <Link to="/login">로그인</Link>
       </RightMenu>
+
       <BurgerNav show={burgerStatus}>
         <CloseWrapper>
-          <CustomClose onClick={() => setBurgerStatus(false)} />
+          <CustomClose onClick={() => setBurgerStatus(false)} log />
         </CloseWrapper>
         <li>
           <a href="#">Existing Inventory</a>
@@ -141,6 +139,10 @@ const RightMenu = styled.div`
       display: none;
     }
   }
+`;
+
+const PostVideoIcon = styled(VideocamIcon)`
+  cursor: pointer;
 `;
 
 const CustomMenu = styled(MenuIcon)`

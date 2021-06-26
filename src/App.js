@@ -9,33 +9,34 @@ import Post from "./pages/Post";
 import { db } from "./firebase";
 
 function App() {
-  const [posts, setPosts] = useState([]);
+  // 유튜브 초기화면 포스트글들
+  // const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    db.collection("posts").onSnapshot((snapshot) => {
-      setPosts(snapshot.docs.map((doc) => doc.data()));
-    });
-  }, []);
+  // useEffect(() => {
+  //   db.collection("posts").onSnapshot((snapshot) => {
+  //     setPosts(snapshot.docs.map((doc) => doc.data()));
+  //   });
+  // }, []);
 
   return (
     <Router>
       <div>
         <Switch>
-          <Route path="/login">
-            <Login />
-          </Route>
+          <Route path="/login" component={Login} />
           <Route>
             <Header />
             <Sidebar />
             <Section />
-            {posts.map((post) => (
+
+            {/* 유튜브 메인화면 포스트 글들 (사용x) */}
+            {/* {posts.map((id, post) => (
               <Post
+                ket={id}
                 username={post.username}
                 caption={post.caption}
                 imageUrl={post.imageUrl}
               />
-            ))}
-            {/* <Post username="sim" caption="dope" imageUrl="./logo192.png" /> */}
+            ))} */}
           </Route>
         </Switch>
       </div>
