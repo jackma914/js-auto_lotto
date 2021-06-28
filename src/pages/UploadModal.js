@@ -3,6 +3,7 @@ import styled from "styled-components";
 import CloseIcon from "@material-ui/icons/Close";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { connect } from "react-redux";
+import firebase from "firebase";
 
 function UploadModal(props) {
   const [editorText, setEditorText] = useState("");
@@ -216,13 +217,5 @@ const Editor = styled.div`
 `;
 
 const UploadVideo = styled.div``;
-
-const mapStateToProps = (state) => {
-  return {
-    user: state.userState.state,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => ({});
 
 export default UploadModal;
