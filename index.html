@@ -5,30 +5,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>lotto</title>
     <script defer src="script.js"></script>
   </head>
 
   <body>
-    <!-- 렌덤번호 추가 -->
-    <div class="sidebar"></div>
+    <div class="wrapper">
+      <!--헤더에는 로고와 이번주 당첨번호와 과거 당첨번호를 구현  -->
+      <div class="banner">
+        <div class="header">
+          <img class="logo" src="./logo.jpg" alt="" />
 
-    <!-- 이번주 당첨 점보 -->
-    <div class="header">
-      <img src="logo.jpg" alt="" />
-      <ul></ul>
+          <!-- 위닝 넘버를 api로 받아와야합니다. -->
+          <div class="winning-number">
+            <span>number</span>
+            <span>number</span>
+            <span>number</span>
+            <span>number</span>
+            <span>number</span>
+          </div>
+        </div>
+      </div>
 
-      <!-- footer -->
-      <p class="copyright">
-        &copy; Copyright by
-        <a
-          class="twitter-link"
-          target="_blank"
-          href="https://twitter.com/jonasschmedtman"
-          >Jonas Schmedtmann</a
-        >. Use for learning or your portfolio. Don't use to teach. Don't claim
-        as your own.
-      </p>
+      <!-- section1 -->
+      <div class="section1"></div>
+
+      <!-- section2 -->
+      <div class="section2"></div>
     </div>
   </body>
 </html>
