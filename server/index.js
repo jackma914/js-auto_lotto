@@ -1,3 +1,5 @@
+const moment = require("moment");
+
 //express 모듈 불러오기
 const express = require("express");
 //express 사용
@@ -11,9 +13,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // @path {GET} http://localhost:3000/
 // @description 요청 데이터 값이 없고 반환 값이 있는 GET Method
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
 
 app.get("/lottos/last", (req, res) => {
   let week = getWeek();
@@ -26,7 +25,7 @@ app.get("/lottos/last", (req, res) => {
       strictSSL: false,
     },
     (error, response, body) => {
-      console.log(error);
+      // console.log(error);
       res.json(JSON.parse(body));
     }
   );
