@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "axios": "^0.23.0"
+    "build": "parcel build index.html",
+    "dev": "parcel index.html",
+    "parcel-bundler": "1.12.5"
   }
 }

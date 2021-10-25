@@ -1,5 +1,3 @@
-const moment = require("moment");
-
 //express 모듈 불러오기
 const express = require("express");
 //express 사용
@@ -11,6 +9,9 @@ const request = require("request");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+const cors = require("cors");
+app.use(cors());
+
 // @path {GET} http://localhost:3000/
 // @description 요청 데이터 값이 없고 반환 값이 있는 GET Method
 
@@ -19,7 +20,7 @@ app.get("/lottos/last", (req, res) => {
 
   request.get(
     {
-      uri:
+      url:
         "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=" +
         week,
       strictSSL: false,
