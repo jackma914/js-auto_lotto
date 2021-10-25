@@ -2,7 +2,6 @@
 const express = require("express");
 //express 사용
 const app = express();
-
 const request = require("request");
 
 //Express 4.16.0버전 부터 body-parser의 일부 기능이 익스프레스에 내장 body-parser 연결
