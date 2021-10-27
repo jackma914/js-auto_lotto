@@ -5,8 +5,10 @@ const numbers = document.querySelector(".logo");
 class App {
   constructor() {
     this._getNumber();
+    this._choiceNumber();
   }
 
+  // 서버에서 번호를 받아와서 해더에 출력합니다.
   _getNumber() {
     axios.get("http://localhost:3000/lottos/last").then((res) => {
       const data = res.data;
@@ -17,7 +19,10 @@ class App {
             <span>${data.drwtNo2}</span>
             <span>${data.drwtNo3}</span>
             <span>${data.drwtNo4}</span>
-          <div class="contact">${data.drwtNo5}</div>
+            <span>${data.drwtNo5}</span>
+            <span>${data.drwtNo6}</span>
+          <div class="bnus-num">${data.bnusNo}</div>
+          <span>${data.drwNo}</span>
         </div>
           `;
         numbers.insertAdjacentHTML("afterend", html);
@@ -27,32 +32,19 @@ class App {
     });
   }
 
-  _loadNumber(data) {
-    if (data) {
-      console.log(data);
-    } else {
-      console.log("오류");
-    }
-    // const { drwtNo1 } = number;
-    // const { drwtNo2 } = number;
-    // const { drwtNo3 } = number;
-    // const { drwtNo4 } = number;
-    // const { drwtNo5 } = number;
-    // const numbers = [drwtNo1, drwtNo2, drwtNo3, drwtNo4, drwtNo5];
-
-    //   let html = `
-    //   <div class="winning-number">
-    //     <span>${number.drwtNo1}</span>
-    //     <span>${number.drwtNo2}</span>
-    //     <span>${number.drwtNo3}</span>
-    //     <span>${number.drwtNo4}</span>
-    //   <div class="contact">${number.drwtNo5}</div>
-    // </div>
-    //   `;
-
-    //   numbers.insertAdjacentHTML("afterend", html);
+  _choiceNumber() {
+    axios
+      .get("http://localhost:3000/lottos/:id", {
+        params: { id: "100" },
+      })
+      .then(function (res) {
+        const data = res.data;
+        console.log(data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
-
-  // _renderWorkout(numbers) {}
 }
+
 new App();

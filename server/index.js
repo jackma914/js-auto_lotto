@@ -11,9 +11,12 @@ app.use(express.urlencoded({ extended: true }));
 const cors = require("cors");
 app.use(cors());
 
+const moment = require("moment");
+
 // @path {GET} http://localhost:3000/
 // @description 요청 데이터 값이 없고 반환 값이 있는 GET Method
 
+//최신 회차 로또 번호를 가져옵니다.
 app.get("/lottos/last", (req, res) => {
   let week = getWeek();
 
@@ -31,9 +34,30 @@ app.get("/lottos/last", (req, res) => {
   );
 });
 
+getWeek = () => {
+  const t1 = moment("20021207");
+  const t2 = moment();
+  const dff = moment.duration(t2.diff(t1)).asDays();
+  return Math.floor(dff / 7) + 1;
+};
+
 // http listen port 생성 서버 실행
 app.listen(3000, () => console.log("서버 오픈"));
 
-getWeek = () => {
-  return 100;
-};
+app.get("/lottos/:id", (req, res) => {
+  request.get(
+    {
+      uri:
+        "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=" +
+        req.params.id,
+      strictSSL: false,
+    },
+    (error, response, body) => {
+      res.json(JSON.parse(body));
+    }
+  );
+});
+
+// app.get("/documents/:id", (req, res) => {
+//   res.json({ id: req.params.id });
+// });
