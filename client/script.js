@@ -1,6 +1,7 @@
 "use strict";
 
 const numbers = document.querySelector(".logo");
+const xhr = new XMLHttpRequest();
 
 class App {
   constructor() {
@@ -33,17 +34,23 @@ class App {
   }
 
   _choiceNumber() {
-    axios
-      .get("http://localhost:3000/lottos/:id", {
-        params: { id: "100" },
-      })
-      .then(function (res) {
-        const data = res.data;
-        console.log(data);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // axios
+    //   .get("http://localhost:3000/lottos/:id", {
+    //     params: { id: 100 },
+    //   })
+    //   .then(function (res) {
+    //     const data = res.data;
+    //     console.log(data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+
+    xhr.open("GET", "http://localhost:3000/lottos/" + 300);
+    xhr.send();
+    xhr.onload = () => {
+      console.log(JSON.parse(xhr.response));
+    };
   }
 }
 

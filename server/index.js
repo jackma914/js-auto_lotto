@@ -47,7 +47,7 @@ app.listen(3000, () => console.log("서버 오픈"));
 app.get("/lottos/:id", (req, res) => {
   request.get(
     {
-      uri:
+      url:
         "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=" +
         req.params.id,
       strictSSL: false,
