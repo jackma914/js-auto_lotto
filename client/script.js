@@ -1,6 +1,8 @@
 "use strict";
 
 const numbers = document.querySelector(".logo");
+const form = document.getElementById("form");
+const input = document.getElementById("msg");
 const xhr = new XMLHttpRequest();
 
 class App {
@@ -33,6 +35,7 @@ class App {
     });
   }
 
+  //서버로부터 검색된 회차 데이터 받아옵니다.
   _choiceNumber() {
     // axios
     //   .get("http://localhost:3000/lottos/:id", {
@@ -46,10 +49,14 @@ class App {
     //     console.log(error);
     //   });
 
-    xhr.open("GET", "http://localhost:3000/lottos/" + 300);
+    xhr.open("GET", "http://localhost:3000/lottos/" + 100);
     xhr.send();
     xhr.onload = () => {
       console.log(JSON.parse(xhr.response));
+      let data = JSON.parse(xhr.response);
+
+      //받아온 번호 테스트
+      console.log(data.drwtNo3);
     };
   }
 }
