@@ -1,14 +1,51 @@
 "use strict";
 
+const arrow = document.querySelector(".arrow");
 const numbers = document.querySelector(".logo");
 const form = document.getElementById("form");
 const input = document.getElementById("msg");
+
 const xhr = new XMLHttpRequest();
 
 class App {
   constructor() {
     this._getNumber();
-    this._choiceNumber();
+    // this._newWorkout();
+    form.addEventListener("submit", this._choiceNumber.bind(this));
+  }
+
+  // 회차를 조회하여 받아온 회차 위닝 번호를 html에 추가해줍니다.
+  _choiceNumber(e) {
+    e.preventDefault();
+    const num = input.value;
+
+    xhr.open("GET", "http://localhost:3000/lottos/" + num);
+    xhr.send();
+    xhr.onload = () => {
+      console.log(JSON.parse(xhr.response));
+      let dataN = JSON.parse(xhr.response);
+
+      // //받아온 번호 테스트
+      console.log(dataN.drwtNo3);
+
+      if (dataN) {
+        let html = `
+        <div class="text">
+        <span>${dataN.drwtNo1}</span>
+        <span>${dataN.drwtNo2}</span>
+        <span>${dataN.drwtNo3}</span>
+        <span>${dataN.drwtNo4}</span>
+        <span>${dataN.drwtNo5}</span>
+        <span>${dataN.drwtNo6}</span>
+      <div class="bnus-num">${dataN.bnusNo}</div>
+      <span>${dataN.drwNo}</span>
+      </div>
+          `;
+        arrow.insertAdjacentHTML("afterend", html);
+      } else {
+        console.log("번호를 가져오지 못했습니다.");
+      }
+    };
   }
 
   // 서버에서 번호를 받아와서 해더에 출력합니다.
@@ -33,31 +70,6 @@ class App {
         console.log("번호를 가져오지 못했습니다.");
       }
     });
-  }
-
-  //서버로부터 검색된 회차 데이터 받아옵니다.
-  _choiceNumber() {
-    // axios
-    //   .get("http://localhost:3000/lottos/:id", {
-    //     params: { id: 100 },
-    //   })
-    //   .then(function (res) {
-    //     const data = res.data;
-    //     console.log(data);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-
-    xhr.open("GET", "http://localhost:3000/lottos/" + 100);
-    xhr.send();
-    xhr.onload = () => {
-      console.log(JSON.parse(xhr.response));
-      let data = JSON.parse(xhr.response);
-
-      //받아온 번호 테스트
-      console.log(data.drwtNo3);
-    };
   }
 }
 
