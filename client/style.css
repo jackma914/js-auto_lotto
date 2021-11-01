@@ -4,7 +4,7 @@
 }
 
 .banner {
-  height: 100vh;
+  height: 80vh;
   background-color: #64e2ed;
   display: flex;
   flex-direction: column;
@@ -62,4 +62,25 @@
 
 .arrow {
   margin-top: 60px;
+}
+
+.section1 {
+  display: flex;
+  height: 350px;
+  object-fit: cover;
+}
+
+.section1 .left {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section1 .text-container {
+  width: 70%;
+}
+
+.left,
+.right {
+  flex: 1;
 }

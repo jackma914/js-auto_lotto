@@ -5,6 +5,8 @@ const numbers = document.querySelector(".logo");
 const form = document.getElementById("form");
 const input = document.getElementById("msg");
 
+const left = document.querySelector(".left");
+
 const xhr = new XMLHttpRequest();
 
 class App {
@@ -19,6 +21,7 @@ class App {
     e.preventDefault();
     const num = input.value;
 
+    //입력한 회차 값을 서버로 보내줍니다.
     xhr.open("GET", "http://localhost:3000/lottos/" + num);
     xhr.send();
     xhr.onload = () => {
@@ -26,8 +29,9 @@ class App {
       let dataN = JSON.parse(xhr.response);
 
       // //받아온 번호 테스트
-      console.log(dataN.drwtNo3);
+      // console.log(dataN.drwtNo3);
 
+      //받아온 정보를 html에 추가해줍니다.
       if (dataN) {
         let html = `
         <div class="text">
@@ -73,4 +77,48 @@ class App {
   }
 }
 
+class MakeNumber {
+  constructor() {
+    this._makeNumber();
+  }
+
+  _makeNumber() {
+    let lotto = [];
+    for (let i = 0; i < 7; i++) {
+      let num = Math.floor(Math.random() * 45) + 1;
+
+      // for in 문을 이용하여 생성된 번호중 겹치는걸 방지합니다.
+      for (let j in lotto) {
+        if (num == lotto[j]) {
+          num = Math.floor(Math.random() * 45) + 1;
+        }
+      }
+      lotto.push(num);
+    }
+
+    // !!!IMPORTANT slice를 이용하여 lottoN에 마지막 보너스 값을 제외한 번호를 넣어준뒤 sort를 이용하여 보너스 번호를 뺀 다머지 번호를 오름순차 번호로 정리하였습니다.
+    let lottoN = lotto.slice(0, 6);
+
+    lottoN.sort((a, b) => {
+      return a - b;
+    });
+
+    console.log(lottoN);
+
+    let html = `
+        <div class="auto-number">
+          <span>${lottoN[0]}</span>
+          <span>${lottoN[1]}</span>
+          <span>${lottoN[2]}</span>
+          <span>${lottoN[3]}</span>
+          <span>${lottoN[4]}</span>
+          <span>${lottoN[5]}</span>
+          <span>${"보너스" + lotto[6]}</span>
+      </div>
+        `;
+    left.insertAdjacentHTML("afterend", html);
+  }
+}
+
 new App();
+new MakeNumber();
