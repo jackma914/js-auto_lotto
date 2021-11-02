@@ -4,8 +4,8 @@ const arrow = document.querySelector(".arrow");
 const numbers = document.querySelector(".logo");
 const form = document.getElementById("form");
 const input = document.getElementById("msg");
-
-const left = document.querySelector(".left");
+// const map = document.getElementById("map");
+const makeNumber = document.querySelector(".text-container");
 
 const xhr = new XMLHttpRequest();
 
@@ -116,9 +116,19 @@ class MakeNumber {
           <span>${"보너스" + lotto[6]}</span>
       </div>
         `;
-    left.insertAdjacentHTML("afterend", html);
+
+    makeNumber.insertAdjacentHTML("afterend", html);
   }
+}
+
+class Map {
+  constructor() {
+    this._getMap();
+  }
+
+  _getMap() {}
 }
 
 new App();
 new MakeNumber();
+new Map();
