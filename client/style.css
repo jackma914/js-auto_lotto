@@ -84,3 +84,10 @@
 .right {
   flex: 1;
 }
+
+.right .controls {
+  margin-top: 10px;
+  height: 35px;
+  border-radius: 10px;
+  opacity: 0.5;
+}
