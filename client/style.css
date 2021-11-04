@@ -91,3 +91,26 @@
   border-radius: 10px;
   opacity: 0.5;
 }
+
+/* 번호 1~10번 노랑, 10~20번 파랑, 20~30번 빨강 30~40번 회색 , 40~45번 초록*/
+.ball-yello {
+  background-color: #fbc400;
+  border-radius: 10px;
+}
+.ball-blue {
+  background-color: #69c8f2;
+  border-radius: 10px;
+}
+.ball-red {
+  background-color: #ff7272;
+  border-radius: 10px;
+}
+
+.ball-gray {
+  background-color: #aaa;
+  border-radius: 10px;
+}
+.ball-green {
+  background-color: #b0d840;
+  border-radius: 10px;
+}

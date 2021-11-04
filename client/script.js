@@ -1,7 +1,7 @@
 "use strict";
 
 const arrow = document.querySelector(".arrow");
-const numbers = document.querySelector(".logo");
+const numbers = document.querySelector(".main");
 const form = document.getElementById("form");
 const input = document.getElementById("msg");
 // const map = document.getElementById("map");
@@ -25,7 +25,6 @@ class App {
     xhr.open("GET", "http://localhost:3000/lottos/" + num);
     xhr.send();
     xhr.onload = () => {
-      console.log(JSON.parse(xhr.response));
       let dataN = JSON.parse(xhr.response);
 
       // //받아온 번호 테스트
@@ -35,29 +34,37 @@ class App {
       if (dataN) {
         let html = `
         <div class="text">
-        <span>${dataN.drwtNo1}</span>
-        <span>${dataN.drwtNo2}</span>
-        <span>${dataN.drwtNo3}</span>
-        <span>${dataN.drwtNo4}</span>
-        <span>${dataN.drwtNo5}</span>
-        <span>${dataN.drwtNo6}</span>
+        <span id="ball" >${dataN.drwtNo1}</span>
+        <span class="ball ">${dataN.drwtNo2}</span>
+        <span class="ball ">${dataN.drwtNo3}</span>
+        <span class="ball ">${dataN.drwtNo4}</span>
+        <span class="ball ">${dataN.drwtNo5}</span>
+        <span class="ball ">${dataN.drwtNo6}</span>
       <div class="bnus-num">${dataN.bnusNo}</div>
       </div>
           `;
+
         arrow.insertAdjacentHTML("afterend", html);
       } else {
         console.log("번호를 가져오지 못했습니다.");
       }
+      if (dataN.drwtNo1 < 10) {
+        console.log("hi");
+
+        document.getElementById("ball").classList.add("ball-yello");
+      }
     };
   }
 
-  // 서버에서 번호를 받아와서 해더에 출력합니다.
+  // 서버에서 최신 회차 번호를 받아와서 출력합니다.
   _getNumber() {
     axios.get("http://localhost:3000/lottos/last").then((res) => {
       const data = res.data;
+
       if (data) {
         let html = `
           <div class="winning-number">
+          <span>${data.drwNoDate}</span>
             <span>${data.drwtNo1}</span>
             <span>${data.drwtNo2}</span>
             <span>${data.drwtNo3}</span>
@@ -68,7 +75,7 @@ class App {
           <span>${data.drwNo}</span>
         </div>
           `;
-        numbers.insertAdjacentHTML("afterend", html);
+        numbers.insertAdjacentHTML("beforebegin", html);
       } else {
         console.log("번호를 가져오지 못했습니다.");
       }
@@ -76,6 +83,7 @@ class App {
   }
 }
 
+//자동 번호 생성기입니다.
 class MakeNumber {
   constructor() {
     this._makeNumber();
@@ -102,11 +110,9 @@ class MakeNumber {
       return a - b;
     });
 
-    console.log(lottoN);
-
     let html = `
         <div class="auto-number">
-          <span>${lottoN[0]}</span>
+          <span id ="ball" >${lottoN[0]}</span>
           <span>${lottoN[1]}</span>
           <span>${lottoN[2]}</span>
           <span>${lottoN[3]}</span>
@@ -117,9 +123,18 @@ class MakeNumber {
         `;
 
     makeNumber.insertAdjacentHTML("afterend", html);
+
+    if (lottoN[0] < 10) {
+      console.log("hi");
+
+      document.getElementById("ball").classList.add("ball-yello");
+    }
   }
 }
 
+// ---------------------------------------------------------------
+
+//판매처 위치를 구현했습니다.
 class Map {
   constructor() {
     // this._getMap();
@@ -137,6 +152,7 @@ class Map {
       );
   }
 
+  //받은 geolocationd의 coords위치를 가지고 구글맵을 이용하여 구현했습니다.
   _getMap(position) {
     // navigator.geolocation.getCurrentPosition();
     const { latitude } = position.coords;
@@ -173,7 +189,6 @@ class Map {
         marker.setMap(null);
       });
       markers = [];
-
       // For each place, get the icon, name and location.
       const bounds = new google.maps.LatLngBounds();
 
@@ -195,7 +210,7 @@ class Map {
         markers.push(
           new google.maps.Marker({
             map,
-            icon,
+            // icon,
             title: place.name,
             position: place.geometry.location,
           })
@@ -209,6 +224,44 @@ class Map {
       });
       map.fitBounds(bounds);
     });
+
+    // marker의 디테일 정보 소스, 위의 마커와 같이 구현하지를 못하고 있습니다.
+    // const request = {
+    //   placeId: "ChIJN1t_tDeuEmsRUsoyG83frY4",
+    //   fields: ["name", "formatted_address", "place_id", "geometry"],
+    // };
+    // const infowindow = new google.maps.InfoWindow();
+    // const service = new google.maps.places.PlacesService(map);
+
+    // service.getDetails(request, (place, status) => {
+    //   if (status === google.maps.places.PlacesServiceStatus.OK) {
+    //     // const marker = new google.maps.Marker({
+    //     //   map,
+    //     //   position: place.geometry.location,
+    //     // });
+
+    //     google.maps.event.addListener(markers, "click", () => {
+    //       console.log("hi");
+    //       const content = document.createElement("div");
+    //       const nameElement = document.createElement("h2");
+
+    //       nameElement.textContent = place.name;
+    //       content.appendChild(nameElement);
+
+    //       const placeIdElement = document.createElement("p");
+
+    //       placeIdElement.textContent = place.place_id;
+    //       content.appendChild(placeIdElement);
+
+    //       const placeAddressElement = document.createElement("p");
+
+    //       placeAddressElement.textContent = place.formatted_address;
+    //       content.appendChild(placeAddressElement);
+    //       infowindow.setContent(content);
+    //       infowindow.open(map, markers);
+    //     });
+    //   }
+    // });
   }
 }
 
