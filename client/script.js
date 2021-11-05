@@ -105,29 +105,55 @@ class MakeNumber {
 
     // !!!IMPORTANT slice를 이용하여 lottoN에 마지막 보너스 값을 제외한 번호를 넣어준뒤 sort를 이용하여 보너스 번호를 뺀 다머지 번호를 오름순차 번호로 정리하였습니다.
     let lottoN = lotto.slice(0, 6);
-
+    let ball = [0, 1, 2, 3, 4, 5, 6];
     lottoN.sort((a, b) => {
       return a - b;
     });
 
+    console.log(lottoN);
+    console.log(lotto);
+
     let html = `
         <div class="auto-number">
-          <span id ="ball" >${lottoN[0]}</span>
-          <span>${lottoN[1]}</span>
-          <span>${lottoN[2]}</span>
-          <span>${lottoN[3]}</span>
-          <span>${lottoN[4]}</span>
-          <span>${lottoN[5]}</span>
-          <span>${"보너스" + lotto[6]}</span>
+          <span id = ball-${ball[0]} >${lottoN[0]}</span>
+          <span id =ball-${ball[1]} >${lottoN[1]}</span>
+          <span id =ball-${ball[2]} >${lottoN[2]}</span>
+          <span id =ball-${ball[3]}>${lottoN[3]}</span>
+          <span id =ball-${ball[4]} >${lottoN[4]}</span>
+          <span id =ball-${ball[5]} >${lottoN[5]}</span>
+          <span id =ball-plus >+</span>
+          <span id =ball-bonus > ${lotto[6]}</span>
       </div>
         `;
 
     makeNumber.insertAdjacentHTML("afterend", html);
 
-    if (lottoN[0] < 10) {
-      console.log("hi");
+    //생성된 번호의 색상을 넣어줬습니다.
+    for (let i = 0; i < 6; i++) {
+      if (lottoN[i] <= 10) {
+        document.getElementById(`ball-${ball[i]}`).classList.add("ball-yello");
+      } else if (lottoN[i] > 10 && lottoN[i] <= 20) {
+        document.getElementById(`ball-${ball[i]}`).classList.add("ball-blue");
+      } else if (lottoN[i] > 20 && lottoN[i] <= 30) {
+        document.getElementById(`ball-${ball[i]}`).classList.add("ball-red");
+      } else if (lottoN[i] > 30 && lottoN[i] <= 40) {
+        document.getElementById(`ball-${ball[i]}`).classList.add("ball-gray");
+      } else {
+        document.getElementById(`ball-${ball[i]}`).classList.add("ball-green");
+      }
+    }
 
-      document.getElementById("ball").classList.add("ball-yello");
+    //보너스 번호는 따로 ball-bonus로 id를 지정한뒤 구현했습니다.
+    if (lotto[6] <= 10) {
+      document.getElementById(`ball-bonus`).classList.add("ball-yello");
+    } else if (lotto[6] > 10 && lotto[6] <= 20) {
+      document.getElementById(`ball-bonus`).classList.add("ball-blue");
+    } else if (lotto[6] > 20 && lotto[6] <= 30) {
+      document.getElementById(`ball-bonus`).classList.add("ball-red");
+    } else if (lotto[6] > 30 && lotto[6] <= 40) {
+      document.getElementById(`ball-bonus`).classList.add("ball-gray");
+    } else {
+      document.getElementById(`ball-bonus`).classList.add("ball-green");
     }
   }
 }
