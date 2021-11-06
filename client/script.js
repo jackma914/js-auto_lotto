@@ -26,7 +26,18 @@ class App {
     xhr.send();
     xhr.onload = () => {
       let dataN = JSON.parse(xhr.response);
+      let choiceN = [];
+      let ballN = [0, 1, 2, 3, 4, 5, 6, 7];
 
+      if (dataN) {
+        choiceN.push(dataN.drwtNo1);
+        choiceN.push(dataN.drwtNo2);
+        choiceN.push(dataN.drwtNo3);
+        choiceN.push(dataN.drwtNo4);
+        choiceN.push(dataN.drwtNo5);
+        choiceN.push(dataN.drwtNo6);
+      }
+      console.log(choiceN);
       // //받아온 번호 테스트
       // console.log(dataN.drwtNo3);
 
@@ -34,13 +45,13 @@ class App {
       if (dataN) {
         let html = `
         <div class="text">
-        <span id="ball" >${dataN.drwtNo1}</span>
-        <span class="ball ">${dataN.drwtNo2}</span>
-        <span class="ball ">${dataN.drwtNo3}</span>
-        <span class="ball ">${dataN.drwtNo4}</span>
-        <span class="ball ">${dataN.drwtNo5}</span>
-        <span class="ball ">${dataN.drwtNo6}</span>
-      <div class="bnus-num">${dataN.bnusNo}</div>
+        <span id = balls-${ballN[0]} >${choiceN[0]}</span>
+        <span id = balls-${ballN[1]} >${choiceN[1]}</span>
+        <span id = balls-${ballN[2]} >${choiceN[2]}</span>
+        <span id = balls-${ballN[3]} >${choiceN[3]}</span>
+        <span id = balls-${ballN[4]} >${choiceN[4]}</span>
+        <span id = balls-${ballN[5]} >${choiceN[5]}</span>
+      <div id="balls-num">${dataN.bnusNo}</div>
       </div>
           `;
 
@@ -48,10 +59,40 @@ class App {
       } else {
         console.log("번호를 가져오지 못했습니다.");
       }
-      if (dataN.drwtNo1 < 10) {
-        console.log("hi");
 
-        document.getElementById("ball").classList.add("ball-yello");
+      for (let i = 0; i < 6; i++) {
+        if (choiceN[i] <= 10) {
+          document
+            .getElementById(`balls-${ballN[i]}`)
+            .classList.add("ball-yello");
+        } else if (choiceN[i] > 10 && choiceN[i] <= 20) {
+          document
+            .getElementById(`balls-${ballN[i]}`)
+            .classList.add("ball-blue");
+        } else if (choiceN[i] > 20 && choiceN[i] <= 30) {
+          document
+            .getElementById(`balls-${ballN[i]}`)
+            .classList.add("ball-red");
+        } else if (choiceN[i] > 30 && choiceN[i] <= 40) {
+          document
+            .getElementById(`balls-${ballN[i]}`)
+            .classList.add("ball-gray");
+        } else {
+          document
+            .getElementById(`balls-${ballN[i]}`)
+            .classList.add("ball-green");
+        }
+      }
+      if (dataN.bnusNo <= 10) {
+        document.getElementById("balls-num").classList.add("ball-yello");
+      } else if (dataN.bnusNo > 10 && dataN.bnusNo <= 20) {
+        document.getElementById(`balls-num`).classList.add("ball-blue");
+      } else if (dataN.bnusNo > 20 && dataN.bnusNo <= 30) {
+        document.getElementById(`balls-num`).classList.add("ball-red");
+      } else if (dataN.bnusNo > 30 && dataN.bnusNo <= 40) {
+        document.getElementById(`balls-num`).classList.add("ball-gray");
+      } else {
+        document.getElementById(`balls-num`).classList.add("ball-green");
       }
     };
   }
@@ -59,25 +100,68 @@ class App {
   // 서버에서 최신 회차 번호를 받아와서 출력합니다.
   _getNumber() {
     axios.get("http://localhost:3000/lottos/last").then((res) => {
-      const data = res.data;
+      let data = res.data;
+      let getN = [];
+      if (data) {
+        getN.push(data.drwtNo1);
+        getN.push(data.drwtNo2);
+        getN.push(data.drwtNo3);
+        getN.push(data.drwtNo4);
+        getN.push(data.drwtNo5);
+        getN.push(data.drwtNo6);
+      }
+      console.log(getN);
+
+      let ball = [0, 1, 2, 3, 4, 5, 6];
 
       if (data) {
         let html = `
           <div class="winning-number">
           <span>${data.drwNoDate}</span>
-            <span>${data.drwtNo1}</span>
-            <span>${data.drwtNo2}</span>
-            <span>${data.drwtNo3}</span>
-            <span>${data.drwtNo4}</span>
-            <span>${data.drwtNo5}</span>
-            <span>${data.drwtNo6}</span>
-          <div class="bnus-num">${data.bnusNo}</div>
+            <span id = ball-${ball[0]}>${getN[0]}</span>
+            <span id = ball-${ball[1]}>${getN[1]}</span>
+            <span id = ball-${ball[2]}>${getN[2]}</span>
+            <span id = ball-${ball[3]}>${getN[3]}</span>
+            <span id = ball-${ball[4]}>${getN[4]}</span>
+            <span id = ball-${ball[5]}>${getN[5]}</span>
+          <span id="ball-num">${data.bnusNo}</span>
           <span>${data.drwNo}</span>
         </div>
           `;
         numbers.insertAdjacentHTML("beforebegin", html);
       } else {
         console.log("번호를 가져오지 못했습니다.");
+      }
+
+      for (let i = 0; i < 6; i++) {
+        if (getN[i] <= 10) {
+          document
+            .getElementById(`ball-${ball[i]}`)
+            .classList.add("ball-yello");
+        } else if (getN[i] > 10 && getN[i] <= 20) {
+          document.getElementById(`ball-${ball[i]}`).classList.add("ball-blue");
+        } else if (getN[i] > 20 && getN[i] <= 30) {
+          document.getElementById(`ball-${ball[i]}`).classList.add("ball-red");
+        } else if (getN[i] > 30 && getN[i] <= 40) {
+          document.getElementById(`ball-${ball[i]}`).classList.add("ball-gray");
+        } else {
+          document
+            .getElementById(`ball-${ball[i]}`)
+            .classList.add("ball-green");
+        }
+      }
+
+      //보너스 번호는 따로 ball-bonus로 id를 지정한뒤 구현했습니다.
+      if (data.bnusNo <= 10) {
+        document.getElementById("ball-num").classList.add("ball-yello");
+      } else if (data.bnusNo > 10 && data.bnusNo <= 20) {
+        document.getElementById(`ball-num`).classList.add("ball-blue");
+      } else if (data.bnusNo > 20 && data.bnusNo <= 30) {
+        document.getElementById(`ball-num`).classList.add("ball-red");
+      } else if (data.bnusNo > 30 && data.bnusNo <= 40) {
+        document.getElementById(`ball-num`).classList.add("ball-gray");
+      } else {
+        document.getElementById(`ball-num`).classList.add("ball-green");
       }
     });
   }
@@ -109,9 +193,6 @@ class MakeNumber {
     lottoN.sort((a, b) => {
       return a - b;
     });
-
-    console.log(lottoN);
-    console.log(lotto);
 
     let html = `
         <div class="auto-number">
