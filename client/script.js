@@ -1,8 +1,7 @@
 "use strict";
+const home = document.getElementById("home");
 
-const arrow = document.querySelector(".arrow");
-const numbers = document.querySelector(".main");
-const form = document.getElementById("form");
+const form = document.querySelector("form");
 const input = document.getElementById("msg");
 // const map = document.getElementById("map");
 const makeNumber = document.querySelector(".text-container");
@@ -21,7 +20,7 @@ class App {
     e.preventDefault();
     const num = input.value;
 
-    //입력한 회차 값을 서버로 보내줍니다.
+    //ajax를 이용하여 입력한 회차 값을 서버로 보내줍니다.
     xhr.open("GET", "http://localhost:3000/lottos/" + num);
     xhr.send();
     xhr.onload = () => {
@@ -44,7 +43,7 @@ class App {
       //받아온 정보를 html에 추가해줍니다.
       if (dataN) {
         let html = `
-        <div class="text">
+        <div id="choiceNumber" class="choice-number">
         <span id = balls-${ballN[0]} >${choiceN[0]}</span>
         <span id = balls-${ballN[1]} >${choiceN[1]}</span>
         <span id = balls-${ballN[2]} >${choiceN[2]}</span>
@@ -55,11 +54,12 @@ class App {
       </div>
           `;
 
-        arrow.insertAdjacentHTML("afterend", html);
+        input.insertAdjacentHTML("afterend", html);
       } else {
         console.log("번호를 가져오지 못했습니다.");
       }
 
+      //for if문을 이용하여 숫자별로 색상을 정해줍니다.
       for (let i = 0; i < 6; i++) {
         if (choiceN[i] <= 10) {
           document
@@ -110,29 +110,38 @@ class App {
         getN.push(data.drwtNo5);
         getN.push(data.drwtNo6);
       }
-      console.log(getN);
 
       let ball = [0, 1, 2, 3, 4, 5, 6];
 
       if (data) {
         let html = `
+          <div class="section1">
+          <div>
+              <span class="section1-text">
+                <strong class="drw-no" style="display:inline">${data.drwNo}회</strong>당첨결과
+                <br>
+                (${data.drwNoDate})
+              </span>
+          </div>
           <div class="winning-number">
-          <span>${data.drwNoDate}</span>
-            <span id = ball-${ball[0]}>${getN[0]}</span>
-            <span id = ball-${ball[1]}>${getN[1]}</span>
-            <span id = ball-${ball[2]}>${getN[2]}</span>
-            <span id = ball-${ball[3]}>${getN[3]}</span>
-            <span id = ball-${ball[4]}>${getN[4]}</span>
-            <span id = ball-${ball[5]}>${getN[5]}</span>
-          <span id="ball-num">${data.bnusNo}</span>
-          <span>${data.drwNo}</span>
-        </div>
+                <span class="ball" id = ball-${ball[0]}>${getN[0]}</span>
+                <span class="ball" id = ball-${ball[1]}>${getN[1]}</span>
+                <span class="ball" id = ball-${ball[2]}>${getN[2]}</span>
+                <span class="ball" id = ball-${ball[3]}>${getN[3]}</span>
+                <span class="ball" id = ball-${ball[4]}>${getN[4]}</span>
+                <span class="ball" id = ball-${ball[5]}>${getN[5]}</span>
+                <span class="ball ball-plus">+</span>
+                <span class="ball "id="ball-num">${data.bnusNo}</span>
+           </div>  
+          </div>
+
           `;
-        numbers.insertAdjacentHTML("beforebegin", html);
+        home.insertAdjacentHTML("afterbegin", html);
       } else {
         console.log("번호를 가져오지 못했습니다.");
       }
 
+      //for if문을 이용하여 숫자별로 색상을 정해줍니다.
       for (let i = 0; i < 6; i++) {
         if (getN[i] <= 10) {
           document

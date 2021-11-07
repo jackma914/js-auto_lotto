@@ -1,116 +1,79 @@
-* {
-  margin: 0;
-  padding: 0;
-}
-
-.banner {
-  height: 80vh;
-  background-color: #64e2ed;
-  display: flex;
-  flex-direction: column;
-  min-height: 600px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  height: 60px;
-  padding-left: 20px;
-  padding-right: 20px;
-  align-items: center;
-}
-
-.logo {
-  border-radius: 20px;
-}
-
-.header img {
-  height: 100%;
-}
-
-.winning-number {
-  display: flex;
-  font-size: 20px;
-  align-items: center;
-}
-
-.winning-number span {
-  margin-right: 30px;
-  color: white;
-}
-
-.bnus-num {
-  /* background-color: white; */
-  padding: 4px 15px;
-  border-radius: 20px;
-}
-
-.main {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  flex-grow: 1;
-  color: white;
-  font-size: 50px;
-}
-
-.main span {
-  font-size: 20px;
-  margin-right: 10px;
-}
-
-.arrow {
-  margin-top: 60px;
-}
-
-.section1 {
-  display: flex;
-  height: 350px;
-  object-fit: cover;
-}
-
-.section1 .left {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.section1 .text-container {
-  width: 70%;
-}
-
-.left,
-.right {
-  flex: 1;
-}
-
-.right .controls {
-  margin-top: 10px;
-  height: 35px;
-  border-radius: 10px;
-  opacity: 0.5;
-}
-
 /* 번호 1~10번 노랑, 10~20번 파랑, 20~30번 빨강 30~40번 회색 , 40~45번 초록*/
 .ball-yello {
   background-color: #fbc400;
-  border-radius: 10px;
 }
 .ball-blue {
   background-color: #69c8f2;
-  border-radius: 10px;
 }
 .ball-red {
   background-color: #ff7272;
-  border-radius: 10px;
 }
 
 .ball-gray {
   background-color: #aaa;
-  border-radius: 10px;
 }
 .ball-green {
   background-color: #b0d840;
-  border-radius: 10px;
 }
+
+/* --------------------------------------------------------- */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  width: 100%;
+}
+
+/* header--------------------------------------------------- */
+
+/* section1--------------------------------------------------*/
+.section1 {
+  width: 100vw;
+  height: 100vh;
+  background-color: orange;
+
+  padding-top: 15vh;
+  text-align: center;
+  display: block;
+  /* flex-direction: column; */
+}
+
+.section1 .section1-text {
+  font-size: 32px;
+}
+
+.section1 .drw-no {
+  color: #d43301;
+}
+
+.section1 .winning-number {
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+.section1 .winning-number .ball {
+  color: white;
+  font-size: 28px;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  line-height: 56px;
+  display: inline-block;
+}
+.section1 .winning-number .ball-plus {
+  color: #999999;
+  font-weight: 900;
+}
+
+/* section2------------------------------------------------- */
+
+/* section3------------------------------------------------- */
+
+/* section4------------------------------------------------- */

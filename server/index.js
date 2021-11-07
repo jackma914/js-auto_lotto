@@ -40,12 +40,15 @@ getWeek = () => {
   const dff = moment.duration(t2.diff(t1)).asDays();
 
   //7 + 1이었는데 토요일 당일 undefind로 조회가 됩니다. 그래서 +1을 지웠습니다.
-  return Math.floor(dff / 7);
+  return Math.floor(dff / 7 + 1);
 };
+
+console.log(getWeek());
 
 // http listen port 생성 서버 실행
 app.listen(3000, () => console.log("서버 오픈"));
 
+//클라이언트 회차 번호 검색 입니다.
 app.get("/lottos/:id", (req, res) => {
   request.get(
     {
