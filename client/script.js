@@ -1,5 +1,5 @@
 "use strict";
-const home = document.getElementById("home");
+const home = document.querySelector(".header");
 
 const form = document.querySelector("form");
 const input = document.getElementById("msg");
@@ -43,15 +43,18 @@ class App {
       //받아온 정보를 html에 추가해줍니다.
       if (dataN) {
         let html = `
-        <div id="choiceNumber" class="choice-number">
-        <span id = balls-${ballN[0]} >${choiceN[0]}</span>
-        <span id = balls-${ballN[1]} >${choiceN[1]}</span>
-        <span id = balls-${ballN[2]} >${choiceN[2]}</span>
-        <span id = balls-${ballN[3]} >${choiceN[3]}</span>
-        <span id = balls-${ballN[4]} >${choiceN[4]}</span>
-        <span id = balls-${ballN[5]} >${choiceN[5]}</span>
-      <div id="balls-num">${dataN.bnusNo}</div>
+      <div id="choiceNumber" class="choice-number">
+          <span class="ball" id = balls-${ballN[0]} >${choiceN[0]}</span>
+          <span class="ball" id = balls-${ballN[1]} >${choiceN[1]}</span>
+          <span class="ball" id = balls-${ballN[2]} >${choiceN[2]}</span>
+          <span class="ball" id = balls-${ballN[3]} >${choiceN[3]}</span>
+          <span class="ball" id = balls-${ballN[4]} >${choiceN[4]}</span>
+          <span class="ball" id = balls-${ballN[5]} >${choiceN[5]}</span>
+          <span class="ball ball-plus">+</span>
+          <span class="ball" span id="balls-num">${dataN.bnusNo}</span>
       </div>
+    
+
           `;
 
         input.insertAdjacentHTML("afterend", html);
@@ -112,31 +115,35 @@ class App {
       }
 
       let ball = [0, 1, 2, 3, 4, 5, 6];
+      console.log(data.drwNo);
 
       if (data) {
         let html = `
-          <div class="section1">
-          <div>
-              <span class="section1-text">
-                <strong class="drw-no" style="display:inline">${data.drwNo}회</strong>당첨결과
-                <br>
-                (${data.drwNoDate})
-              </span>
-          </div>
-          <div class="winning-number">
-                <span class="ball" id = ball-${ball[0]}>${getN[0]}</span>
-                <span class="ball" id = ball-${ball[1]}>${getN[1]}</span>
-                <span class="ball" id = ball-${ball[2]}>${getN[2]}</span>
-                <span class="ball" id = ball-${ball[3]}>${getN[3]}</span>
-                <span class="ball" id = ball-${ball[4]}>${getN[4]}</span>
-                <span class="ball" id = ball-${ball[5]}>${getN[5]}</span>
-                <span class="ball ball-plus">+</span>
-                <span class="ball "id="ball-num">${data.bnusNo}</span>
-           </div>  
+          <div class="section section1">
+            <div>
+                <span class="section1-text">
+                  <strong class="drw-no" style="display:inline">${data.drwNo}회</strong>당첨결과
+                  <br>
+                  (${data.drwNoDate})
+                </span>
+            </div>
+            <div class="winning-number">
+                  <span class="ball" id = ball-${ball[0]}>${getN[0]}</span>
+                  <span class="ball" id = ball-${ball[1]}>${getN[1]}</span>
+                  <span class="ball" id = ball-${ball[2]}>${getN[2]}</span>
+                  <span class="ball" id = ball-${ball[3]}>${getN[3]}</span>
+                  <span class="ball" id = ball-${ball[4]}>${getN[4]}</span>
+                  <span class="ball" id = ball-${ball[5]}>${getN[5]}</span>
+                  <span class="ball ball-plus">+</span>
+                  <span class="ball "id="ball-num">${data.bnusNo}</span>
+            </div>  
+            <div>
+              <img src="./down-arrow.svg">
+            </div>
           </div>
 
           `;
-        home.insertAdjacentHTML("afterbegin", html);
+        home.insertAdjacentHTML("afterend", html);
       } else {
         console.log("번호를 가져오지 못했습니다.");
       }
@@ -383,4 +390,4 @@ class Map {
 
 new App();
 new MakeNumber();
-new Map();
+// new Map();
