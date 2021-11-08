@@ -6,21 +6,35 @@ const input = document.getElementById("msg");
 const select = document.getElementById("dwrNoList");
 // const map = document.getElementById("map");
 const makeNumber = document.querySelector(".text-container");
+const dwrNoList = document.getElementById("dwrNoList");
 
 const xhr = new XMLHttpRequest();
 
 class App {
   constructor() {
+    this._plusChoiceNumber();
     this._getNumber();
-    this._getAllNumber();
     // this._newWorkout();
     form.addEventListener("change", this._choiceNumber.bind(this));
   }
 
-  _getAllNumber() {
-    axios.get("http://localhost:3000/lottos/num").then((res) => {
-      let data = res.data;
-      console.log(data);
+  _plusChoiceNumber() {
+    axios.get("http://localhost:3000/lottos/last").then((res) => {
+      let dataS = res.data.drwNo;
+      let drwN = [];
+      console.log(dataS);
+      console.log(drwN);
+
+      for (let i = 0; i < dataS; i++) {
+        // console.log(dataS - i);
+        drwN.push(dataS - i);
+        if (drwN) {
+          let html = `
+        <option value="${drwN[i]}">${drwN[i]}</option>
+            `;
+          dwrNoList.insertAdjacentHTML("afterbegin", html);
+        }
+      }
     });
   }
 
@@ -45,7 +59,6 @@ class App {
         choiceN.push(dataN.drwtNo5);
         choiceN.push(dataN.drwtNo6);
       }
-      console.log(choiceN);
       // //받아온 번호 테스트
       // console.log(dataN.drwtNo3);
 
@@ -113,6 +126,7 @@ class App {
   _getNumber() {
     axios.get("http://localhost:3000/lottos/last").then((res) => {
       let data = res.data;
+
       let getN = [];
       if (data) {
         getN.push(data.drwtNo1);

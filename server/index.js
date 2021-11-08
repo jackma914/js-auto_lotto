@@ -34,24 +34,24 @@ app.get("/lottos/last", (req, res) => {
   );
 });
 
-app.get("lottos/num", (req, res) => {
-  let num = allNumber();
-  request.get({ num }, (error, response, body) => {
-    console.log(error);
-    res.json(JSON.parse(body));
-  });
-});
+// app.get("lottos/num", (req, res) => {
+//   let num = allNumber();
+//   request.get({ num }, (error, response, body) => {
+//     console.log(error);
+//     res.json(JSON.parse(body));
+//   });
+// });
 
-allNumber = () => {
-  const t3 = moment("20021207");
-  const t4 = moment();
-  const dfff = moment.duration(t4.diff(t3)).asDays();
-  let allN = Math.floor(dfff / 7 + 1);
-  for (let i = 0; i < allN; i++) {
-    return Math.floor(allN - i);
-  }
-};
-// console.log(allNumber());
+// allNumber = () => {
+//   const t3 = moment("20021207");
+//   const t4 = moment();
+//   const dfff = moment.duration(t4.diff(t3)).asDays();
+//   let allN = Math.floor(dfff / 7 + 1);
+//   for (let i = 0; i < allN; i++) {
+//     return Math.floor(allN - i);
+//   }
+// };
+// // console.log(allNumber());
 
 getWeek = () => {
   const t1 = moment("20021207");
