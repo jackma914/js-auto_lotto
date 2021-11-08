@@ -125,6 +125,9 @@ p {
   font-weight: 900;
 }
 
+.section .arrow {
+}
+
 .section1 img {
   margin-top: 30vh;
   height: 40px;
@@ -163,11 +166,19 @@ p {
   display: inline-block;
 }
 
+.section2 .input-number {
+  max-height: 500px;
+}
+
+.section2 .allow {
+  position: relative;
+  bottom: 20px;
+}
+
 .section2 img {
   margin-top: 50vh;
   height: 40px;
   animation: animateDown infinite 1.5s;
-  margin-bottom: 10vh;
 }
 
 /* section3------------------------------------------------- */

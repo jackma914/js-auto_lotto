@@ -3,6 +3,7 @@ const home = document.querySelector(".header");
 
 const form = document.querySelector("form");
 const input = document.getElementById("msg");
+const select = document.getElementById("dwrNoList");
 // const map = document.getElementById("map");
 const makeNumber = document.querySelector(".text-container");
 
@@ -11,14 +12,22 @@ const xhr = new XMLHttpRequest();
 class App {
   constructor() {
     this._getNumber();
+    this._getAllNumber();
     // this._newWorkout();
-    form.addEventListener("submit", this._choiceNumber.bind(this));
+    form.addEventListener("change", this._choiceNumber.bind(this));
+  }
+
+  _getAllNumber() {
+    axios.get("http://localhost:3000/lottos/num").then((res) => {
+      let data = res.data;
+      console.log(data);
+    });
   }
 
   // 회차를 조회하여 받아온 회차 위닝 번호를 html에 추가해줍니다.
   _choiceNumber(e) {
     e.preventDefault();
-    const num = input.value;
+    const num = select.value;
 
     //ajax를 이용하여 입력한 회차 값을 서버로 보내줍니다.
     xhr.open("GET", "http://localhost:3000/lottos/" + num);
@@ -57,7 +66,7 @@ class App {
 
           `;
 
-        input.insertAdjacentHTML("afterend", html);
+        select.insertAdjacentHTML("afterend", html);
       } else {
         console.log("번호를 가져오지 못했습니다.");
       }
@@ -115,7 +124,6 @@ class App {
       }
 
       let ball = [0, 1, 2, 3, 4, 5, 6];
-      console.log(data.drwNo);
 
       if (data) {
         let html = `
