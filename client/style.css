@@ -125,9 +125,6 @@ p {
   font-weight: 900;
 }
 
-.section .arrow {
-}
-
 .section1 img {
   margin-top: 30vh;
   height: 40px;
@@ -179,6 +176,17 @@ p {
   margin-top: 50vh;
   height: 40px;
   animation: animateDown infinite 1.5s;
+}
+
+.section2 .input-number {
+  font-size: 32px;
+}
+
+.section2 .dwrNoList {
+  height: 34px;
+}
+
+.section2 .input-number .input {
 }
 
 /* section3------------------------------------------------- */

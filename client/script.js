@@ -30,7 +30,7 @@ class App {
         drwN.push(dataS - i);
         if (drwN) {
           let html = `
-        <option value="${drwN[i]}">${drwN[i]}</option>
+        <option class="choice-number" value="${drwN[i]}">${drwN[i]}</option>
             `;
           dwrNoList.insertAdjacentHTML("afterbegin", html);
         }
