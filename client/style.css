@@ -57,6 +57,16 @@ p {
   flex-wrap: nowrap;
 }
 
+.ball {
+  color: white;
+  font-size: 28px;
+  width: 60px;
+  height: 60px;
+  border-radius: 100%;
+  line-height: 56px;
+  display: inline-block;
+}
+
 /* header--------------------------------------------------- */
 
 .header {
@@ -108,18 +118,8 @@ p {
   margin-block-end: 1em;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
-  white-space: nowrap;
 }
 
-.section1 .winning-number .ball {
-  color: white;
-  font-size: 28px;
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
-  line-height: 56px;
-  display: inline-block;
-}
 .section1 .winning-number .ball-plus {
   color: #999999;
   font-weight: 900;
@@ -153,24 +153,17 @@ p {
   margin-top: 50px;
 }
 
-.section2 .choice-number .ball {
-  color: white;
-  font-size: 28px;
-  width: 60px;
-  height: 60px;
-  border-radius: 100%;
-  line-height: 56px;
-  display: inline-block;
-}
-
 .section2 .input-number {
-  max-height: 500px;
+  max-height: 800px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  font-size: 32px;
 }
-
+/* 
 .section2 .allow {
   position: relative;
   bottom: 20px;
-}
+} */
 
 .section2 img {
   margin-top: 50vh;
@@ -178,17 +171,21 @@ p {
   animation: animateDown infinite 1.5s;
 }
 
-.section2 .input-number {
-  font-size: 32px;
-}
-
 .section2 .dwrNoList {
   height: 34px;
 }
 
-.section2 .input-number .input {
+/* section3------------------------------------------------- */
+
+.section3 {
+  background: pink;
+  padding-top: 30vh;
+  text-align: center;
+  display: block;
 }
 
-/* section3------------------------------------------------- */
+.section3 .auto-number {
+  margin-block-start: 1em;
+}
 
 /* section4------------------------------------------------- */

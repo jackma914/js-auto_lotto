@@ -4,6 +4,7 @@ const home = document.querySelector(".header");
 const form = document.querySelector("form");
 const input = document.getElementById("msg");
 const select = document.getElementById("dwrNoList");
+const button = document.getElementById("auto-button");
 // const map = document.getElementById("map");
 const makeNumber = document.querySelector(".text-container");
 const dwrNoList = document.getElementById("dwrNoList");
@@ -22,8 +23,6 @@ class App {
     axios.get("http://localhost:3000/lottos/last").then((res) => {
       let dataS = res.data.drwNo;
       let drwN = [];
-      console.log(dataS);
-      console.log(drwN);
 
       for (let i = 0; i < dataS; i++) {
         // console.log(dataS - i);
@@ -208,11 +207,13 @@ class App {
 //자동 번호 생성기입니다.
 class MakeNumber {
   constructor() {
-    this._makeNumber();
+    button.addEventListener("click", this._makeNumber.bind(this));
+    // this._makeNumber();
   }
 
   _makeNumber() {
-    let lotto = [];
+    const lotto = [];
+
     for (let i = 0; i < 7; i++) {
       let num = Math.floor(Math.random() * 45) + 1;
 
@@ -226,39 +227,41 @@ class MakeNumber {
     }
 
     // !!!IMPORTANT slice를 이용하여 lottoN에 마지막 보너스 값을 제외한 번호를 넣어준뒤 sort를 이용하여 보너스 번호를 뺀 다머지 번호를 오름순차 번호로 정리하였습니다.
-    let lottoN = lotto.slice(0, 6);
-    let ball = [0, 1, 2, 3, 4, 5, 6];
+    const lottoN = lotto.slice(0, 6);
+    let ballS = [0, 1, 2, 3, 4, 5, 6];
+
     lottoN.sort((a, b) => {
       return a - b;
     });
 
     let html = `
         <div class="auto-number">
-          <span id = ball-${ball[0]} >${lottoN[0]}</span>
-          <span id =ball-${ball[1]} >${lottoN[1]}</span>
-          <span id =ball-${ball[2]} >${lottoN[2]}</span>
-          <span id =ball-${ball[3]}>${lottoN[3]}</span>
-          <span id =ball-${ball[4]} >${lottoN[4]}</span>
-          <span id =ball-${ball[5]} >${lottoN[5]}</span>
-          <span id =ball-plus >+</span>
-          <span id =ball-bonus > ${lotto[6]}</span>
+          <span id = "ball0" class="ball">${lottoN[0]}</span>
+          <span id = "ball1" class="ball">${lottoN[1]}</span>
+          <span id = "ball2" class="ball">${lottoN[2]}</span>
+          <span id = "ball3" class="ball">${lottoN[3]}</span>
+          <span id = "ball4" class="ball">${lottoN[4]}</span>
+          <span id = "ball5" class="ball">${lottoN[5]}</span>
+          <span class="ball ball-plus">+</span>
+          <span id = "ball-bonus" class="ball"> ${lotto[6]}</span>
       </div>
         `;
 
-    makeNumber.insertAdjacentHTML("afterend", html);
+    button.insertAdjacentHTML("afterend", html);
 
     //생성된 번호의 색상을 넣어줬습니다.
     for (let i = 0; i < 6; i++) {
       if (lottoN[i] <= 10) {
-        document.getElementById(`ball-${ball[i]}`).classList.add("ball-yello");
+        console.log(lottoN[i]);
+        document.getElementById(`ball${[i]}`).classList.add("ball-yello");
       } else if (lottoN[i] > 10 && lottoN[i] <= 20) {
-        document.getElementById(`ball-${ball[i]}`).classList.add("ball-blue");
+        document.getElementById(`ball${[i]}`).classList.add("ball-blue");
       } else if (lottoN[i] > 20 && lottoN[i] <= 30) {
-        document.getElementById(`ball-${ball[i]}`).classList.add("ball-red");
+        document.getElementById(`ball${[i]}`).classList.add("ball-red");
       } else if (lottoN[i] > 30 && lottoN[i] <= 40) {
-        document.getElementById(`ball-${ball[i]}`).classList.add("ball-gray");
+        document.getElementById(`ball${[i]}`).classList.add("ball-gray");
       } else {
-        document.getElementById(`ball-${ball[i]}`).classList.add("ball-green");
+        document.getElementById(`ball${[i]}`).classList.add("ball-green");
       }
     }
 
