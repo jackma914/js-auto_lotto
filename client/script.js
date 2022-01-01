@@ -25,7 +25,7 @@ class App {
       let drwN = [];
 
       for (let i = 0; i < dataS; i++) {
-        // console.log(dataS - i);
+        console.log(dataS - i);
         drwN.push(dataS - i);
         if (drwN) {
           let html = `
@@ -252,7 +252,6 @@ class MakeNumber {
     //생성된 번호의 색상을 넣어줬습니다.
     for (let i = 0; i < 6; i++) {
       if (lottoN[i] <= 10) {
-        console.log(lottoN[i]);
         document.getElementById(`ball${[i]}`).classList.add("ball-yello");
       } else if (lottoN[i] > 10 && lottoN[i] <= 20) {
         document.getElementById(`ball${[i]}`).classList.add("ball-blue");
