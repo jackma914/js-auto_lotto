@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import "./App.css";
 import TOC from "./components/TOC";
 import Subject from "./components/Subject";
-import Content from "./components/Content";
+import ReadContent from "./components/ReadContent";
+import CreateContent from "./components/CreateContent";
 import Control from "./components/Control";
 
 class App extends Component {
   constructor(props) {
     super(props);
+    this.max_content_id = 3;
     this.state = {
-      mode: "welcome",
+      mode: "create",
       selected_content_id: 2,
       subject: { title: "WEB", sub: "World wide web!" },
       welcome: { title: "Welcome", desc: "hello , react!!!" },
@@ -23,10 +25,16 @@ class App extends Component {
 
   render() {
     let _title,
+      _airticle,
       _desc = null;
     if (this.state.mode === "welcome") {
       _title = this.state.welcome.title;
       _desc = this.state.welcome.desc;
+      _airticle = (
+        <ReadContent title={_title} desc={_desc}>
+          {" "}
+        </ReadContent>
+      );
     } else if (this.state.mode === "read") {
       let i = 0;
       while (i < this.state.contents.length) {
@@ -34,10 +42,35 @@ class App extends Component {
         if (data.id === this.state.selected_content_id) {
           _title = data.title;
           _desc = data.desc;
+
           break;
         }
         i = i + 1;
       }
+      _airticle = (
+        <ReadContent title={_title} desc={_desc}>
+          {" "}
+        </ReadContent>
+      );
+    } else if ((this.state.mode = "create")) {
+      _airticle = (
+        <CreateContent
+          onSubmit={function (_title, _desc) {
+            this.max_content_id = this.max_content_id + 1;
+
+            this.state.contents.push({
+              id: this.max_content_id,
+              title: _title,
+              desc: _desc,
+            });
+            this.setState({
+              contents: this.state.contents,
+            });
+          }.bind(this)}
+        >
+          {" "}
+        </CreateContent>
+      );
     }
     return (
       <div className="App">
@@ -63,7 +96,7 @@ class App extends Component {
             });
           }.bind(this)}
         ></Control>
-        <Content title={_title} desc={_desc}></Content>
+        {_airticle}
       </div>
     );
   }
