@@ -1,102 +1,75 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import "./App.css";
-import TOC from "./components/TOC";
-import Subject from "./components/Subject";
-import ReadContent from "./components/ReadContent";
-import CreateContent from "./components/CreateContent";
-import Control from "./components/Control";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.max_content_id = 3;
-    this.state = {
-      mode: "create",
-      selected_content_id: 2,
-      subject: { title: "WEB", sub: "World wide web!" },
-      welcome: { title: "Welcome", desc: "hello , react!!!" },
-      contents: [
-        { id: 1, title: "HTML", desc: "HTML is hypertext..." },
-        { id: 2, title: "CSS", desc: "css is hypertext..." },
-        { id: 3, title: "JS", desc: "js is hypertext..." },
-      ],
-    };
-  }
+function App() {
+  return (
+    <div className="container">
+      <h1>hello world</h1>
+      <FuncComp initNumber={2}></FuncComp>
+      <ClassComp initNumber={2}></ClassComp>
+    </div>
+  );
+}
 
+function FuncComp(props) {
+  const numberState = useState(props.initNumber);
+  const number = numberState[0];
+  const setNumber = numberState[1];
+
+  // const dateState = useState(new Date().toString());
+  // const _date = dateState[0];
+  // const setDate = dateState[1];
+
+  const [_date, setDate] = useState(new Date().toString());
+
+  return (
+    <div className="container">
+      <h2>function style component</h2>
+      <p>Number : {number}</p>
+      <input
+        type="button"
+        value="random"
+        onClick={function () {
+          setNumber(Math.random());
+        }}
+      />
+      <p>date : {_date}</p>
+      <input
+        type="button"
+        value="date"
+        onClick={function () {
+          setDate(new Date().toString());
+        }}
+      />
+    </div>
+  );
+}
+
+class ClassComp extends React.Component {
+  state = {
+    number: this.props.initNumber,
+    _date: new Date().toString(),
+  };
   render() {
-    let _title,
-      _airticle,
-      _desc = null;
-    if (this.state.mode === "welcome") {
-      _title = this.state.welcome.title;
-      _desc = this.state.welcome.desc;
-      _airticle = (
-        <ReadContent title={_title} desc={_desc}>
-          {" "}
-        </ReadContent>
-      );
-    } else if (this.state.mode === "read") {
-      let i = 0;
-      while (i < this.state.contents.length) {
-        const data = this.state.contents[i];
-        if (data.id === this.state.selected_content_id) {
-          _title = data.title;
-          _desc = data.desc;
-
-          break;
-        }
-        i = i + 1;
-      }
-      _airticle = (
-        <ReadContent title={_title} desc={_desc}>
-          {" "}
-        </ReadContent>
-      );
-    } else if ((this.state.mode = "create")) {
-      _airticle = (
-        <CreateContent
-          onSubmit={function (_title, _desc) {
-            this.max_content_id = this.max_content_id + 1;
-
-            this.state.contents.push({
-              id: this.max_content_id,
-              title: _title,
-              desc: _desc,
-            });
-            this.setState({
-              contents: this.state.contents,
-            });
-          }.bind(this)}
-        >
-          {" "}
-        </CreateContent>
-      );
-    }
     return (
-      <div className="App">
-        <Subject
-          title={this.state.subject.title}
-          sub={this.state.subject.sub}
-          onChangePage={function () {
-            alert("hihihi");
-            this.setState({ mode: "welcome" });
+      <div className="container">
+        <h2>class style component</h2>
+        <p>Number : {this.state.number}</p>
+        <input
+          type="button"
+          value="random"
+          onClick={function () {
+            this.setState({ number: Math.random() });
           }.bind(this)}
-        ></Subject>
-
-        <TOC
-          onChangePage={function (id) {
-            this.setState({ mode: "read", selected_content_id: +id });
+        />
+        <p>Date : {this.state._date}</p>
+        <input
+          type="button"
+          value="date"
+          onClick={function () {
+            this.setState({ _date: new Date().toString() });
           }.bind(this)}
-          data={this.state.contents}
-        ></TOC>
-        <Control
-          onChangeMode={function (_mode) {
-            this.setState({
-              mode: _mode,
-            });
-          }.bind(this)}
-        ></Control>
-        {_airticle}
+        />
       </div>
     );
   }
