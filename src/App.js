@@ -45,12 +45,24 @@ function FuncComp(props) {
   );
 }
 
+const classStyle = "color:red";
+
 class ClassComp extends React.Component {
   state = {
     number: this.props.initNumber,
     _date: new Date().toString(),
   };
+
+  componentDidMount() {
+    console.log("%cclass => componentDidMount", classStyle);
+  }
+
+  componentDidUpdate() {
+    console.log("%cclass => componentDidUpdate", classStyle);
+  }
+
   render() {
+    console.log("%cclass => render", classStyle);
     return (
       <div className="container">
         <h2>class style component</h2>
