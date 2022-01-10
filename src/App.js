@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
@@ -11,16 +11,21 @@ function App() {
   );
 }
 
+const funcStyle = "color:blue";
+let funcId = 0;
+
 function FuncComp(props) {
   const numberState = useState(props.initNumber);
   const number = numberState[0];
   const setNumber = numberState[1];
 
-  // const dateState = useState(new Date().toString());
-  // const _date = dateState[0];
-  // const setDate = dateState[1];
-
   const [_date, setDate] = useState(new Date().toString());
+
+  useEffect(function () {
+    console.log("%cfunc => useEffect" + ++funcId, funcStyle);
+  });
+
+  console.log("%cfunc => render " + ++funcId, funcStyle);
 
   return (
     <div className="container">
@@ -53,16 +58,16 @@ class ClassComp extends React.Component {
     _date: new Date().toString(),
   };
 
-  componentDidMount() {
-    console.log("%cclass => componentDidMount", classStyle);
-  }
+  // componentDidMount() {
+  //   console.log("%cclass => componentDidMount", classStyle);
+  // }
 
-  componentDidUpdate() {
-    console.log("%cclass => componentDidUpdate", classStyle);
-  }
+  // componentDidUpdate() {
+  //   console.log("%cclass => componentDidUpdate", classStyle);
+  // }
 
   render() {
-    console.log("%cclass => render", classStyle);
+    // console.log("%cclass => render", classStyle);
     return (
       <div className="container">
         <h2>class style component</h2>
