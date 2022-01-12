@@ -18,11 +18,21 @@ function FuncComp(props) {
   const numberState = useState(props.initNumber);
   const number = numberState[0];
   const setNumber = numberState[1];
-
   const [_date, setDate] = useState(new Date().toString());
 
   useEffect(function () {
-    console.log("%cfunc => useEffect" + ++funcId, funcStyle);
+    console.log(
+      "%cfunc => useEffect (componentDidMount & componentDidUpdate)" + ++funcId,
+      funcStyle
+    );
+    document.title = number + " : " + _date;
+    return function () {
+      console.log(
+        "%cfunc => useEffect return (componentDidMount & componentDidUpdate)" +
+          ++funcId,
+        funcStyle
+      );
+    };
   });
 
   console.log("%cfunc => render " + ++funcId, funcStyle);
@@ -58,16 +68,16 @@ class ClassComp extends React.Component {
     _date: new Date().toString(),
   };
 
-  // componentDidMount() {
-  //   console.log("%cclass => componentDidMount", classStyle);
-  // }
+  componentDidMount() {
+    console.log("%cclass => componentDidMount", classStyle);
+  }
 
-  // componentDidUpdate() {
-  //   console.log("%cclass => componentDidUpdate", classStyle);
-  // }
+  componentDidUpdate() {
+    console.log("%cclass => componentDidUpdate", classStyle);
+  }
 
   render() {
-    // console.log("%cclass => render", classStyle);
+    console.log("%cclass => render", classStyle);
     return (
       <div className="container">
         <h2>class style component</h2>
